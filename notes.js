@@ -1,13 +1,17 @@
 const fs = require('fs')
 const chalk = require('chalk')
-const getNotes = function(title){
+const readNote = function(title){
     const notes = loadNotes();
     const dup = notes.find((note)=> {
         return note.title === title;
     });
-
-    console.log(dup.body);
-
+    if(dup){
+        console.log(chalk.bold.inverse(dup.title));
+        console.log(dup.body);
+    }
+    else{
+        console.log(chalk.red.inverse('Title not found'));
+    }
 }
 
 const addNote = function(title,body){
@@ -75,7 +79,7 @@ const removeNote = function(title){
 
 
 module.exports={
-    getNotes: getNotes,
+    readNote: readNote,
     addNote: addNote,
     removeNote: removeNote,
     listNote: listNote
